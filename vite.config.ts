@@ -13,7 +13,7 @@ export default defineConfig({
       algorithm: "brotliCompress",
     }),
   ],
-  base: "./",
+  base: "/lancer-briefings-cmlimm/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
