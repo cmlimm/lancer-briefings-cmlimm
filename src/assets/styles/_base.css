@@ -158,7 +158,7 @@ header {
 }
 
 #title-first-line {
-	border-bottom: 1px solid #000;
+	border-bottom: 1px solid var(--title-color);
 }
 
 .rhombus {
@@ -351,7 +351,7 @@ div .content-container {
 section.section-container {
 	display: flex;
 	flex-direction: column;
-	margin: 50px 30px;
+	margin: 50px 5px 30px 20px;
 	width: 393px;
 	height: 100%;
 }
@@ -367,13 +367,13 @@ section.section-container#reserves,
 section.section-container#clocks {
 	display: flex;
 	flex-direction: column;
-	margin: 30px 30px;
+	margin: 30px 20px 30px 15px;
 	width: 343px;
 	height: 377px;
 }
 
 section.section-container#reserves {
-	margin-top: 15px;
+	margin-top: 50px;
 }
 
 section.section-container#events-logs {
