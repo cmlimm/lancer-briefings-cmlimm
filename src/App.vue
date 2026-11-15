@@ -110,43 +110,62 @@ export default {
 				this.reserves = JSON.parse(JSON.stringify(content)).default;
 			});
 		},
+		normalizePilot(json) {
+			if (!(json.EXPORT_TYPE && json.data)) return json;
+			const pilot = { ...json.data };
+			pilot.state = pilot.state ?? { active_mech_id: pilot.favorite_mech || pilot.mechs?.[0]?.id };
+			pilot.lastModified = pilot.lastModified ?? pilot.save?.lastModified;
+			pilot.loadout = pilot.loadout ?? pilot.loadouts?.[0];
+			pilot.portrait = pilot.portrait ?? pilot.img?.portrait ?? "";
+			pilot.cloud_portrait = pilot.cloud_portrait ?? pilot.img?.cloud_portrait ?? "";
+			pilot.clocks = pilot.clocks ?? [];
+			pilot.reserves = pilot.reserves ?? [];
+			return pilot;
+		},
 		async importPilots(files) {
-			let filePromises = Object.keys(files).map(path => files[path]());
-			let fileContents = await Promise.all(filePromises);
-			fileContents.forEach(content => {
-				let pilotFromJson = JSON.parse(JSON.stringify(content));
-				// In case the pilot was added from a copy on compcon via sharecode, remove the "reference mark" symbol
-				pilotFromJson.name = pilotFromJson.name.replace("※", "");
-				pilotFromJson.callsign = pilotFromJson.callsign.replace("※", "");
-				let pilotFromVue = this.pilotSpecialInfo[pilotFromJson.callsign.toUpperCase()];
-				let pilot = {
-					...pilotFromJson,
-					...pilotFromVue,
-				};
-				this.pilots = [...this.pilots, pilot];
-				pilot.clocks.forEach(content => {
-					let clock = {};
-					clock["type"] = `Pilot Project // ${pilot.callsign}`;
-					clock["result"] = "";
-					clock["name"] = content.title;
-					clock["description"] = content.description;
-					clock["value"] = content.progress;
-					clock["max"] = content.segments;
-					clock["color"] = "#3CB043";
-					this.clocks = [...this.clocks, clock];
-				});
+			const paths = Object.keys(files);
+			let fileContents = await Promise.all(paths.map(path => files[path]()));
+			fileContents.forEach((content, index) => {
+				try {
+					this.addPilot(content);
+				} catch (error) {
+					console.error(`Failed to load pilot ${paths[index]}:`, error);
+				}
+			});
+		},
+		addPilot(content) {
+			let pilotFromJson = this.normalizePilot(JSON.parse(JSON.stringify(content.default ?? content)));
+			// In case the pilot was added from a copy on compcon via sharecode, remove the "reference mark" symbol
+			pilotFromJson.name = pilotFromJson.name.replace("※", "");
+			pilotFromJson.callsign = pilotFromJson.callsign.replace("※", "");
+			let pilotFromVue = this.pilotSpecialInfo[pilotFromJson.callsign.toUpperCase()];
+			let pilot = {
+				...pilotFromJson,
+				...pilotFromVue,
+			};
+			this.pilots = [...this.pilots, pilot];
+			pilot.clocks.forEach(content => {
+				let clock = {};
+				clock["type"] = `Pilot Project // ${pilot.callsign}`;
+				clock["result"] = "";
+				clock["name"] = content.title;
+				clock["description"] = content.description;
+				clock["value"] = content.progress;
+				clock["max"] = content.segments;
+				clock["color"] = "#3CB043";
+				this.clocks = [...this.clocks, clock];
+			});
 
-				pilot.reserves.forEach(content => {
-					let reserve = {};
-					reserve["type"] = content.type;
-					reserve["name"] = content.name;
-					reserve["description"] = content.description;
-					reserve["label"] = content.label;
-					reserve["cost"] = content.cost;
-					reserve["notes"] = content.notes;
-					reserve["callsign"] = pilot.callsign.toUpperCase();
-					this.reserves = [...this.reserves, reserve];
-				});
+			pilot.reserves.forEach(content => {
+				let reserve = {};
+				reserve["type"] = content.type;
+				reserve["name"] = content.name;
+				reserve["description"] = content.description;
+				reserve["label"] = content.label;
+				reserve["cost"] = content.cost;
+				reserve["notes"] = content.notes;
+				reserve["callsign"] = pilot.callsign.toUpperCase();
+				this.reserves = [...this.reserves, reserve];
 			});
 		},
 	},

@@ -140,13 +140,18 @@ import ktbData from 'lancer-ktb-data'
 import nrfawData from 'lancer-nrfaw-data'
 import longrimData from 'lancer-longrim-data'
 
+import dustgraveData from '@/assets/LCPs/dustgrave-data'
+import ktbLcpData from '@/assets/LCPs/ktb-data'
+import longRimLcpData from '@/assets/LCPs/long-rim-data'
+import osrData from '@/assets/LCPs/osr-data'
+import owsData from '@/assets/LCPs/ows-data'
+import sotwData from '@/assets/LCPs/sotw-data'
+import ssmrData from '@/assets/LCPs/ssmr-data'
 import wallflowerData from '@/assets/LCPs/wallflower-data'
-/*Append the datasets within computed if your LCP has new items.
-EX:
-pilotGear() {
-  return [...lancerData.pilot_gear, ...wallflowerData.pilot_gear]
-},
-*/
+// Local LCPs from src/assets/LCPs. Each folder's index.js exposes frames, pilot_gear, systems, weapons
+// and talents. They come after the npm packages, so items those already provide resolve the same as before.
+const localLcps = [ktbLcpData, longRimLcpData, dustgraveData, osrData, owsData, sotwData, ssmrData, wallflowerData]
+const fromLocalLcps = (key) => localLcps.flatMap((lcp) => lcp[key])
 
 import PilotModal from '@/components/modals/PilotModal.vue'
 import MechModal from '@/components/modals/MechModal.vue'
@@ -186,16 +191,16 @@ export default {
       return withBase(`/mechs/${this.pilot.callsign.toUpperCase()}.webp`)
     },
     pilotGear() {
-      return [...lancerData.pilot_gear]
+      return [...lancerData.pilot_gear, ...fromLocalLcps('pilot_gear')]
     },
     mechWeapons() {
-      return [...lancerData.weapons, ...ktbData.weapons, ...nrfawData.weapons, ...longrimData.weapons]
+      return [...lancerData.weapons, ...ktbData.weapons, ...nrfawData.weapons, ...longrimData.weapons, ...fromLocalLcps('weapons')]
     },
     mechSystems() {
-      return [...lancerData.systems, ...ktbData.systems, ...nrfawData.systems, ...longrimData.systems]
+      return [...lancerData.systems, ...ktbData.systems, ...nrfawData.systems, ...longrimData.systems, ...fromLocalLcps('systems')]
     },
     talents() {
-      return [...lancerData.talents, ...ktbData.talents, ...nrfawData.talents, ...longrimData.talents]
+      return [...lancerData.talents, ...ktbData.talents, ...nrfawData.talents, ...longrimData.talents, ...fromLocalLcps('talents')]
     },
     skills() {
       return [...lancerData.skills]    
@@ -204,7 +209,7 @@ export default {
       return [...ktbData.bonds]
     },
     frames() {
-      return [...lancerData.frames, ...ktbData.frames, ...nrfawData.frames, ...longrimData.frames]
+      return [...lancerData.frames, ...ktbData.frames, ...nrfawData.frames, ...longrimData.frames, ...fromLocalLcps('frames')]
     },
     mechManufacturerIcon() {
       if (this.activeMech.manufacturer)
@@ -296,11 +301,11 @@ export default {
     },
     getSkill(skill) {
       let sk = this.skills.find((x) => x.id == skill.id);
-      return sk.name + " +" + (skill.rank * 2)
+      return (sk?.name ?? skill.id) + " +" + (skill.rank * 2)
     },
     getTalent(id, value) {
       let talent = this.talents.find((x) => x.id == id);
-      let response = talent.name + " "
+      let response = (talent?.name ?? id) + " "
 
       for (let i = 0; i < value; i++) {
         response += "I"
@@ -309,7 +314,7 @@ export default {
     },
     getLicense(id, value) {
       let frame = this.frames.find((x) => x.id == id);
-      let response = frame.source + " " + frame.name + " "
+      let response = (frame ? frame.source + " " + frame.name : id) + " "
 
       for (let i = 0; i < value; i++) {
         response += "I"
