@@ -32,10 +32,16 @@ const routes = [
 		props: true,
 		meta: { title: `${DEFAULT_TITLE} EVENTS LOG` },
 	},
+	{
+		path: "/:pathMatch(.*)*",
+		redirect: "/status",
+	},
 ];
 
 const router = createRouter({
-	history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
+	history: import.meta.env.SSR
+		? createMemoryHistory(import.meta.env.BASE_URL)
+		: createWebHistory(import.meta.env.BASE_URL),
 	routes,
 	scrollBehavior(to, from, savedPosition) {
 		if (to.hash) {

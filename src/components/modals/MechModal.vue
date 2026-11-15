@@ -65,6 +65,7 @@
 
 <script>
 import { VueMarkdownIt } from '@f3ve/vue-markdown-it';
+import { withBase } from '@/utils/withBase';
 
 export default {
   components: {
@@ -116,10 +117,10 @@ export default {
   },
   computed: {
     pilotPortrait() {
-      return `/pilots/${this.pilot.callsign.toUpperCase()}.webp`
+      return withBase(`/pilots/${this.pilot.callsign.toUpperCase()}.webp`)
     },
     mechPortrait() {
-      return `/mechs/${this.pilot.callsign.toUpperCase()}.webp`
+      return withBase(`/mechs/${this.pilot.callsign.toUpperCase()}.webp`)
     },
   },
   methods: {

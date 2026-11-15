@@ -134,6 +134,7 @@
 
 <script>
 import 'external-svg-loader'
+import { withBase } from '@/utils/withBase'
 import lancerData from '@massif/lancer-data'
 import ktbData from 'lancer-ktb-data'
 import nrfawData from 'lancer-nrfaw-data'
@@ -179,10 +180,10 @@ export default {
   },
   computed: {
     pilotPortrait() {
-      return `/pilots/${this.pilot.callsign.toUpperCase()}.webp`
+      return withBase(`/pilots/${this.pilot.callsign.toUpperCase()}.webp`)
     },
     mechPortrait() {
-      return `/mechs/${this.pilot.callsign.toUpperCase()}.webp`
+      return withBase(`/mechs/${this.pilot.callsign.toUpperCase()}.webp`)
     },
     pilotGear() {
       return [...lancerData.pilot_gear]
@@ -207,7 +208,7 @@ export default {
     },
     mechManufacturerIcon() {
       if (this.activeMech.manufacturer)
-        return `/faction-logos/${this.activeMech.manufacturer.toLowerCase()}.svg`
+        return withBase(`/faction-logos/${this.activeMech.manufacturer.toLowerCase()}.svg`)
       return ''
     },
     pilotCode() {

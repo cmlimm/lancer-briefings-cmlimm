@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { withBase } from "@/utils/withBase";
+
 export default {
   components: {},
   props: {
@@ -25,7 +27,7 @@ export default {
   },
   computed: {
     icon() {
-      return `/icons/mission-${this.mission.status}.svg`;
+      return withBase(`/icons/mission-${this.mission.status}.svg`);
     },
     missionStatus() {
       if (this.mission.status === "start") return "Current\nBriefing";

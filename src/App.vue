@@ -27,6 +27,7 @@
 import Header from "./components/layout/Header.vue";
 import Sidebar from "./components/layout/Sidebar.vue";
 import Config from "@/assets/info/general-config.json";
+import { withBase } from "@/utils/withBase";
 
 export default {
 	components: {
@@ -38,7 +39,7 @@ export default {
 		return {
 			animate: Config.animate,
 			initialSlug: Config.initialSlug,
-			planetPath: Config.planetPath,
+			planetPath: withBase(Config.planetPath),
 			header: Config.header,
 			pilotSpecialInfo: Config.pilotSpecialInfo,
 			clocks: [],
@@ -50,15 +51,12 @@ export default {
 		};
 	},
 	created() {
-		this.setTitleFavicon(Config.defaultTitle + " MISSION BRIEFING", Config.icon);
+		this.setTitleFavicon(Config.defaultTitle + " MISSION BRIEFING", withBase(Config.icon));
 		this.importMissions(import.meta.glob("@/assets/missions/*.md", { query: '?raw', import: 'default' }));
 		this.importEvents(import.meta.glob("@/assets/events/*.md", { query: '?raw', import: 'default' }));
 		this.importClocks(import.meta.glob("@/assets/clocks/*.json"));
 		this.importReserves(import.meta.glob("@/assets/reserves/*.json"));
 		this.importPilots(import.meta.glob("@/assets/pilots/*.json"));
-	},
-	mounted() {
-		this.$router.push("/status");
 	},
 	methods: {
 		setTitleFavicon(title, favicon) {

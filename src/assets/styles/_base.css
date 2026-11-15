@@ -194,6 +194,8 @@ header video {
 	width: 86px;
 	height: 86px;
 	align-self: center;
+	clip-path: circle(50%);
+	-webkit-clip-path: circle(50%);
 }
 
 div .location-info {
