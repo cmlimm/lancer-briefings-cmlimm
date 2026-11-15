@@ -6,7 +6,6 @@
     </div>
     <div class="status" :class="mission.status">
       {{ missionStatus }}
-      <img :src="icon" />
     </div>
   </div>
 </template>

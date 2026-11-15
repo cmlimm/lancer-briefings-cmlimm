@@ -9,36 +9,41 @@
 /*-------------------------------------*/
 :root {
 	/* Primary Colors */
-	--primary-color: #7dbbbb;
-	--secondary-color: #161c1dcc;
-	--highlight-hover: rgba(255, 255, 255, 0.3);
-	--highlight-active: rgba(255, 255, 255, 0.1);
+	--primary-color: #991E2A;
+	--secondary-color: #F4F4F4;
+	--highlight-hover: rgb(211, 211, 211, 0.5);
+	--highlight-active: rgb(211, 211, 211, 0.5);
 	/* Primary Text */
-	--text-headers: rgba(0, 0, 0, 1);
-	--text-location: rgba(255, 255, 255, 0.87);
+	--text-headers: rgba(0, 0, 0, 0.87);
+	--text-location: rgba(0, 0, 0, 0.87);
 	/* Location Information */
-	--location-separator: rgba(255, 255, 255, 0.24);
+	--location-separator: rgba(0, 0, 0, 0.24);
 	/* Mission Pane */
-	--text-mission-title: rgba(255, 255, 255, 0.67);
-	--text-mission-status: rgba(255, 255, 255, 0.87);
-	--mission-start: rgba(109, 109, 109, 1);
-	--mission-partial: rgba(88, 34, 102, 1);
-	--mission-success: #226662;
+	--text-mission-title: rgba(0, 0, 0, 0.67);
+	--text-mission-status: rgba(0, 0, 0, 0.87);
+	--mission-start: #D3D3D3;
+	--mission-partial: #ffbe00;
+	--mission-success: ##5b863f;
 	--mission-failure: rgba(176, 45, 45, 1);
 	--primary-logo: #0C3C40;
 	--secondary-logo: #146464;
 	/* Pilot Roster Text */
-	--text-pilot-header: rgba(255, 255, 255, 0.67);
-	--text-pilot-value: rgba(255, 255, 255, 0.87);
-	--text-pilot-code: rgba(255, 255, 255, 0.47);
+	--text-pilot-header: rgba(255, 255, 255);
+	--text-pilot-value: rgba(0, 0, 0, 0.87);
+	--text-pilot-code: rgba(0, 0, 0, 0.47);
 	/* Markdown (Current Assignment, Events Log, Pilot Biography) */
-	--text-markdown-p: rgba(255, 255, 255, 0.87);
-	--text-markdown-h1: rgba(255, 255, 255, 0.67);
-	--text-markdown-h2: rgba(255, 255, 255, 0.87);
+	--text-markdown-p: rgba(0, 0, 0, 0.87);
+	--text-markdown-h1: rgba(0, 0, 0, 0.67);
+	--text-markdown-h2: rgba(0, 0, 0, 0.87);
 
 	/* For Firefox */
 	scrollbar-color: var(--primary-color) transparent !important;
 	scrollbar-width: thin;
+
+	--title-color: rgba(255, 255, 255, 1);
+	--sidebar-active: rgba(0, 0, 0, 0.87);
+	--pilot-card-color: #F4F4F4;
+	--svg-color: rgba(255, 255, 255, 1);
 }
 
 html {
@@ -105,6 +110,7 @@ header {
 	font-weight: 800;
 	text-transform: uppercase;
 	letter-spacing: 0.15em;
+	color: var(--title-color);
 }
 
 .title #title-subheader {
@@ -116,6 +122,7 @@ header {
 	text-transform: uppercase;
 	letter-spacing: 0.12em;
 	padding-left: 0.32em;
+	color: var(--title-color);
 }
 
 .title #subtitle-header {
@@ -126,6 +133,7 @@ header {
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
+	color: var(--title-color);
 }
 
 .title #subtitle-subheader {
@@ -136,6 +144,7 @@ header {
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.02em;
+	color: var(--title-color);
 }
 
 .logo {
@@ -298,7 +307,7 @@ div.location-info {
 	align-items: center;
 	margin-bottom: 1em;
 	text-decoration: none;
-	color: var(--text-headers);
+	color: var(--title-color);
 }
 
 .sidebar-layout a.router-link-exact-active {
@@ -314,6 +323,11 @@ div.location-info {
 	background: white;
 	margin-bottom: 1em;
 	text-decoration: none;
+	color: var(--sidebar-active);
+}
+
+.sidebar-layout a.router-link-exact-active img {
+	filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(77deg) brightness(105%) contrast(101%);
 }
 
 .clipped-bottom-right {
@@ -397,6 +411,7 @@ section .section-header {
 	display: inline-flex;
 	gap: 15px;
 	padding-left: 16px;
+	color: var(--title-color);
 }
 
 
@@ -415,6 +430,7 @@ section .section-header h1 {
 	font-weight: 800;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
+	color: var(--title-color);
 }
 
 .section-content-container {
@@ -733,6 +749,10 @@ section .section-header h1 {
 	object-position: top;
 }
 
+.pilot-header {
+	color: var(--title-color);
+}
+
 .pilot-wrapper h1 {
 	font-size: 12px;
 	font-weight: 400;
@@ -920,6 +940,7 @@ section .section-header h1 {
 	gap: 15px;
 	padding-left: 16px;
 	margin-top: -38px !important;
+	color: var(--title-color);
 }
 
 .grid-item div .section-header h1 {
@@ -930,6 +951,7 @@ section .section-header h1 {
 	font-weight: 800;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
+	color: var(--title-color);
 }
 
 .grid-item .rhombus-back {
@@ -991,6 +1013,7 @@ section .section-header h1 {
 	gap: 15px;
 	padding-left: 16px;
 	margin-top: -38px !important;
+	color: var(--text-pilot-header);
 }
 .pilot-modal div .section-header h1 {
 	font-size: 26px;
@@ -1000,6 +1023,7 @@ section .section-header h1 {
 	font-weight: 800;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
+	color: var(--text-pilot-header);
 }
 .pilot-modal .rhombus-back {
 	transform: skew(0.785398rad) !important;
@@ -1062,6 +1086,7 @@ section .section-header h1 {
 	gap: 15px;
 	padding-left: 16px;
 	margin-top: -38px !important;
+	color: var(--title-color);
 }
 
 .mech-modal div .section-header h1 {
@@ -1072,6 +1097,7 @@ section .section-header h1 {
 	font-weight: 800;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
+	color: var(--title-color);
 }
 
 .mech-modal .rhombus-back {
@@ -1131,7 +1157,7 @@ section .section-header h1 {
 	line-height: 1.5em;
 	letter-spacing: 3px;
 	text-transform: uppercase;
-	color: var(--text-pilot-header);
+	color: var(--text-headers);
 }
 
 .mech h2 {
@@ -1141,7 +1167,7 @@ section .section-header h1 {
 	line-height: 1.5em;
 	letter-spacing: 0.5px;
 	text-transform: uppercase;
-	color: var(--text-pilot-value);
+	color: var(--text-headers);
 }
 
 .mech-modal .mech-column {
@@ -1192,6 +1218,7 @@ section .section-header h1 {
 	gap: 15px;
 	padding-left: 16px;
 	margin-top: -38px !important;
+	color: var(--title-color);
 }
 
 .event-modal div .section-header h1 {
@@ -1202,6 +1229,7 @@ section .section-header h1 {
 	font-weight: 800;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
+	color: var(--title-color);
 }
 
 .event-modal .rhombus-back {
@@ -1582,7 +1610,7 @@ div.markdown ol li {
 	border-radius: 5px;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
-	background-color: rgba(22, 28, 29, 1);
+	background-color: var(--pilot-card-color);
 	font-family: "Inconsolata", monospace;
 	font-weight: 400;
 	line-height: 1.25em;

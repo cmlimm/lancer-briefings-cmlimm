@@ -2,8 +2,8 @@
   <div class="grid-item pilot-identity" style="color:white!important">
     <div class="header">
       <div class="col grow-max">
-        <div class="heading h1">{{ pilot.callsign }}</div>
-        <div class="heading h2">({{ pilot.name }}) </div>
+        <div class="heading h1 pilot-header">{{ pilot.callsign }}</div>
+        <div class="heading h2 pilot-header">({{ pilot.name }}) </div>
       </div>
       <div class="col"><img src="/faction-logos/msmc.svg"></div>
     </div>
